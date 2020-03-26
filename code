@@ -5,6 +5,16 @@
 #include <DHT.h>
 #define DHTPIN 27
 #define DHTTYPE DHT11
+#define BLYNK_PRINT Serial
+
+
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <BlynkSimpleEsp32.h>
+char auth[] = "28-HFETvXJzUn5QvY8fegzHDzgLkBFy9";
+char ssid[] = "telenet-1F1BBFF";
+char pass[] = "xEpdb3utXbya";
+BlynkTimer timer;
 
 DHT dht(DHTPIN, DHTTYPE);
  
@@ -18,9 +28,15 @@ Adafruit_BMP280 bmp; // I2C
 
 const int LED1= 14;
 const int LED2= 12;
+const int Alarmled= 33;
 
  
 void setup() {
+    Serial.begin(9600);
+
+  Blynk.begin(auth, ssid, pass, "server.wyns.it", 9443);
+
+  
   pinMode(LED2, OUTPUT);
   pinMode(LED1, OUTPUT);
   dht.begin();
@@ -57,6 +73,10 @@ void loop() {
 
   if (temp >= 24){
     digitalWrite(LED1, LOW);
+    digitalWrite(Alarmled, HIGH);
+    delay(1000);
+    digitalWrite(Alarmled, LOW);
+    delay(1000);
    
   }
   else{
@@ -69,4 +89,8 @@ void loop() {
   else{
     digitalWrite(LED2, HIGH);
   }
+    Blynk.virtualWrite(V5, temp1);
+    Blynk.virtualWrite(V6, temp);
+    Blynk.run();
+    timer.run();
 }
