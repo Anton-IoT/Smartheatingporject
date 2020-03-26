@@ -73,10 +73,7 @@ void loop() {
 
   if (temp >= 24){
     digitalWrite(LED1, LOW);
-    digitalWrite(Alarmled, HIGH);
-    delay(1000);
-    digitalWrite(Alarmled, LOW);
-    delay(1000);
+
    
   }
   else{
