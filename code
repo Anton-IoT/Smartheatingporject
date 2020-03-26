@@ -1,0 +1,72 @@
+
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BMP280.h>
+#include <Adafruit_SSD1306.h>
+#include <DHT.h>
+#define DHTPIN 27
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+ 
+#define OLED_Address 0x3C
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 32 // OLED display height, in pixels
+#define OLED_RESET    -1 // Reset pin # (or -1 if sharing Arduino reset pin)
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+Adafruit_BMP280 bmp; // I2C
+
+const int LED1= 14;
+const int LED2= 12;
+
+ 
+void setup() {
+  pinMode(LED2, OUTPUT);
+  pinMode(LED1, OUTPUT);
+  dht.begin();
+  display.begin(SSD1306_SWITCHCAPVCC, OLED_Address);
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  
+  if (!bmp.begin()) {  
+    display.setCursor(0,0);
+    display.print("Could not find a valid BMP280 sensor, check wiring!");
+    display.display();
+    while (1);
+  }
+}
+ 
+void loop() {
+  float temp = dht.readTemperature();
+  float temp1 = bmp.readTemperature();
+  display.clearDisplay();
+  display.setCursor(0,0);
+  display.print("Temp BMP = ");
+  display.print(temp1);
+  display.print(" C");
+  
+  display.setCursor(0,16);
+  display.print("Temp DHT = ");
+  display.print(temp);
+  display.print(" C");
+  
+ 
+  display.display();
+  delay(2000);
+
+  if (temp >= 24){
+    digitalWrite(LED1, LOW);
+   
+  }
+  else{
+    digitalWrite(LED1, HIGH);
+  }
+    if (temp1 >= 24){
+    digitalWrite(LED2, LOW);
+   
+  }
+  else{
+    digitalWrite(LED2, HIGH);
+  }
+}
