@@ -6,4 +6,5 @@ each room requires a certain temperature for example: *an ideal bathroom tempera
 I have programmed the leds so that they will turn on when its too cold and will turn off when they reach the desired temperature
 for a certain room. on this project I want to use 2 different sensors each sensor are meant for a room for example:
 The BMP280 is meant for the bathroom and a DHT11 sensor is meant for the bedroom.
+I also implemented an OLED so you can see what temperature the sensors are getting.
 
