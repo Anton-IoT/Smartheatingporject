@@ -76,16 +76,12 @@ void loop() {
 
    
   }
-  else{
-    digitalWrite(LED1, HIGH);
-  }
+  
     if (temp1 >= 24){
     digitalWrite(LED2, LOW);
    
   }
-  else{
-    digitalWrite(LED2, HIGH);
-  }
+  
     Blynk.virtualWrite(V5, temp1);
     Blynk.virtualWrite(V6, temp);
     Blynk.run();
