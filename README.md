@@ -8,3 +8,9 @@ for a certain room. on this project I want to use 2 different sensors each senso
 The BMP280 is meant for the bathroom and a DHT11 sensor is meant for the bedroom.
 I also implemented an OLED so you can see what temperature the sensors are getting.
 
+BMP280 video
+https://www.youtube.com/watch?v=RFsmz0sqqnU
+
+DHT11 video
+https://www.youtube.com/watch?v=Xxlk9XtaIjU
+
